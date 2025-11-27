@@ -12,9 +12,6 @@ import {
   FONTS,
 } from "@/lib/constants";
 
-/**
- * Calculates road dash positions
- */
 function generateDashPositions(totalLength: number): { z: number }[] {
   const dashCount = Math.floor(totalLength / ROAD.DASH_SPACING);
   return Array.from({ length: dashCount }, (_, i) => ({
@@ -22,9 +19,6 @@ function generateDashPositions(totalLength: number): { z: number }[] {
   }));
 }
 
-/**
- * Road surface mesh
- */
 function RoadSurface({
   width,
   zPos,
@@ -46,9 +40,6 @@ function RoadSurface({
   );
 }
 
-/**
- * Road dash marker
- */
 function RoadDash({ z }: { z: number }) {
   return (
     <mesh position={[0, 0.02, z]} receiveShadow>
@@ -62,9 +53,6 @@ function RoadDash({ z }: { z: number }) {
   );
 }
 
-/**
- * Road curb/side barrier
- */
 function RoadCurb({
   position,
   width,
@@ -86,9 +74,6 @@ function RoadCurb({
   );
 }
 
-/**
- * End-of-road billboard
- */
 function EndBillboard() {
   return (
     <group position={[0, 0, -SCENE_CONFIG.TRAVEL]}>
@@ -99,9 +84,6 @@ function EndBillboard() {
   );
 }
 
-/**
- * Billboard support poles
- */
 function BillboardPoles() {
   const poleGeometry = (
     <cylinderGeometry
@@ -130,9 +112,6 @@ function BillboardPoles() {
   );
 }
 
-/**
- * Billboard sign board with text
- */
 function BillboardSign() {
   return (
     <>
@@ -174,9 +153,6 @@ function BillboardSign() {
   );
 }
 
-/**
- * Spotlight illuminating the billboard
- */
 function BillboardLight() {
   return (
     <pointLight
@@ -188,9 +164,6 @@ function BillboardLight() {
   );
 }
 
-/**
- * Main Road component
- */
 export default function Road(props: ThreeElements["group"]) {
   const { isMobile } = useViewport();
   const width = isMobile ? ROAD.MOBILE_WIDTH : ROAD.DESKTOP_WIDTH;

@@ -20,9 +20,6 @@ import {
 import type { ResumeItem, ScrollProgressProps } from "@/types";
 import milestonesData from "@/data/milestones.json";
 
-/**
- * Renders all milestone signs along the journey
- */
 function Milestones() {
   const { isMobile } = useViewport();
   const maxDisplayDist = Math.max(10, SCENE_CONFIG.TRAVEL - 8);
@@ -42,9 +39,6 @@ function Milestones() {
   );
 }
 
-/**
- * Controls camera position and direction
- */
 function JourneyCamera() {
   const { isMobile } = useViewport();
 
@@ -57,9 +51,7 @@ function JourneyCamera() {
 
   return null;
 }
-/**
- * Wrapper for motorcycle with animation
- */
+
 function BikeWrapper() {
   const bikeRef = useRef<Group>(null);
 
@@ -67,7 +59,6 @@ function BikeWrapper() {
     if (bikeRef.current) {
       bikeRef.current.position.z = 0;
       bikeRef.current.position.y = 0.25;
-      // Subtle wobble animation
       bikeRef.current.rotation.z =
         Math.sin(state.clock.elapsedTime * ANIMATION.BIKE_WOBBLE_SPEED) *
         ANIMATION.BIKE_WOBBLE_AMOUNT;
@@ -83,9 +74,6 @@ function BikeWrapper() {
   );
 }
 
-/**
- * Fallback placeholder while motorcycle model loads
- */
 function BikeFallback() {
   return (
     <mesh position={[0, 0.5, 0]}>
@@ -95,9 +83,6 @@ function BikeFallback() {
   );
 }
 
-/**
- * Moves the world based on scroll progress with smooth interpolation
- */
 function WorldMover({
   scrollProgress,
   children,
@@ -115,7 +100,6 @@ function WorldMover({
       const normalizedProgress = Math.max(0, Math.min(1, scrollProgress));
       targetZ.current = normalizedProgress * SCENE_CONFIG.TRAVEL;
 
-      // Smooth interpolation (lerp) for smoother movement
       currentZ.current +=
         (targetZ.current - currentZ.current) * ANIMATION.SCROLL_LERP_FACTOR;
 
@@ -127,9 +111,6 @@ function WorldMover({
   return <group ref={groupRef}>{children}</group>;
 }
 
-/**
- * Main 3D touring scene component
- */
 export default function TouringScene({ scrollProgress }: ScrollProgressProps) {
   const isMobile = useIsMobile();
 
@@ -172,9 +153,6 @@ export default function TouringScene({ scrollProgress }: ScrollProgressProps) {
   );
 }
 
-/**
- * Scene lighting setup
- */
 function SceneLighting({ isMobile }: { isMobile: boolean }) {
   const shadowMapSize = isMobile
     ? LIGHTING.DIRECTIONAL.shadow.MOBILE
