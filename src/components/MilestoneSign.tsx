@@ -11,9 +11,6 @@ interface MilestoneSignProps {
   maxDisplayDist: number;
 }
 
-/**
- * Get sign dimensions based on viewport
- */
 function getSignDimensions(isMobile: boolean): SignDimensions {
   return {
     width: isMobile ? SIGN.MOBILE.WIDTH : SIGN.DESKTOP.WIDTH,
@@ -25,9 +22,6 @@ function getSignDimensions(isMobile: boolean): SignDimensions {
   };
 }
 
-/**
- * Individual milestone sign component
- */
 export function MilestoneSign({
   item,
   index,
@@ -47,9 +41,6 @@ export function MilestoneSign({
   );
 }
 
-/**
- * Sign board with text content
- */
 function SignBoard({
   dimensions,
   item,
@@ -63,7 +54,6 @@ function SignBoard({
 
   return (
     <group>
-      {/* Front panel */}
       <mesh position={[0, yPos, 0.06]} castShadow receiveShadow>
         <planeGeometry args={[dimensions.width, dimensions.height]} />
         <meshStandardMaterial
@@ -76,7 +66,6 @@ function SignBoard({
         />
       </mesh>
 
-      {/* Back frame */}
       <mesh position={[0, yPos, -0.08]}>
         <boxGeometry
           args={[dimensions.width + 0.2, dimensions.height + 0.2, 0.1]}
@@ -88,7 +77,6 @@ function SignBoard({
         />
       </mesh>
 
-      {/* Text content */}
       <SignText
         dimensions={dimensions}
         item={item}
@@ -99,9 +87,6 @@ function SignBoard({
   );
 }
 
-/**
- * Text content on the sign
- */
 function SignText({
   dimensions,
   item,
@@ -122,7 +107,6 @@ function SignText({
 
   return (
     <group scale={dimensions.scale} position={[0, yPos, 0.08]}>
-      {/* Title */}
       <Text
         position={[0, dimensions.height * 0.25, 0]}
         fontSize={fontSize.title}
@@ -136,7 +120,6 @@ function SignText({
         {item.title}
       </Text>
 
-      {/* Company */}
       <Text
         position={[0, 0, 0]}
         fontSize={fontSize.company}
@@ -148,7 +131,6 @@ function SignText({
         {item.company}
       </Text>
 
-      {/* Description (desktop only) */}
       {!isMobile && (
         <Text
           position={[0, -dimensions.height * 0.2, 0]}
@@ -164,7 +146,6 @@ function SignText({
         </Text>
       )}
 
-      {/* Date */}
       <Text
         position={[
           0,
@@ -182,9 +163,6 @@ function SignText({
   );
 }
 
-/**
- * Cylindrical post supporting the sign
- */
 function SignPost({ dimensions }: { dimensions: SignDimensions }) {
   return (
     <mesh position={[0, dimensions.postHeight / 2, -0.2]} castShadow>
@@ -204,9 +182,6 @@ function SignPost({ dimensions }: { dimensions: SignDimensions }) {
   );
 }
 
-/**
- * Base of the sign post
- */
 function PostBase() {
   return (
     <mesh position={[0, 0.2, -0.2]} receiveShadow>

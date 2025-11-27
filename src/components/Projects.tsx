@@ -4,9 +4,6 @@ import type { Project } from "@/types";
 import Image from "next/image";
 import projectsData from "@/data/projects.json";
 
-/**
- * Technology badge component
- */
 function TechBadge({ tech }: { tech: string }) {
   return (
     <span
@@ -17,14 +14,10 @@ function TechBadge({ tech }: { tech: string }) {
   );
 }
 
-/**
- * Project action buttons
- */
 function ProjectLinks({ project }: { project: Project }) {
   const hasGithub = project.github_link && project.github_link.trim() !== "";
   const hasLive = project.live_link && project.live_link.trim() !== "";
 
-  // Don't render the container if no links
   if (!hasGithub && !hasLive) return null;
 
   return (
@@ -53,64 +46,59 @@ function ProjectLinks({ project }: { project: Project }) {
   );
 }
 
-/**
- * Individual project card component
- */
 function ProjectCard({ project }: { project: Project }) {
   return (
-    <div
+    <article
       className={`group ${COLORS_CSS.card} rounded-xl overflow-hidden ${EFFECTS.shadow} ${EFFECTS.transition} ${EFFECTS.hoverLift}`}
+      itemScope
+      itemType="https://schema.org/CreativeWork"
     >
-      {/* Project image */}
       <div
         className={`relative ${SPACING.cardImage} ${COLORS_CSS.cardImage} overflow-hidden`}
       >
         {project.image && (
           <Image
             src={project.image}
-            alt={project.title}
+            alt={`${project.title} - ${project.description}`}
             fill
             className={`object-cover ${EFFECTS.hoverScale}`}
+            itemProp="image"
           />
         )}
       </div>
 
-      {/* Project details */}
       <div className={SPACING.cardPadding}>
         <h3
           className={`${TEXT.cardTitle} ${SPACING.textGap.slice(
             0,
             -1
           )}2 group-hover:text-green-400 ${EFFECTS.transition}`}
+          itemProp="name"
         >
           {project.title}
         </h3>
 
         <p
           className={`${TEXT.cardText} ${SPACING.textGap} min-h-10 sm:min-h-12`}
+          itemProp="description"
         >
           {project.description}
         </p>
 
-        {/* Tech stack */}
         <div className={SPACING.textGap}>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2" itemProp="keywords">
             {project.tech_stack.split(",").map((tech, index) => (
               <TechBadge key={index} tech={tech} />
             ))}
           </div>
         </div>
 
-        {/* Action buttons */}
         <ProjectLinks project={project} />
       </div>
-    </div>
+    </article>
   );
 }
 
-/**
- * Section header
- */
 function SectionHeader() {
   return (
     <div className={`text-center ${SPACING.sectionTitle}`}>
@@ -122,9 +110,6 @@ function SectionHeader() {
   );
 }
 
-/**
- * Main Projects section component
- */
 export default function Projects() {
   const projects = projectsData as Project[];
 

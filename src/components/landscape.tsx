@@ -4,23 +4,17 @@ import { pseudoRandom } from "@/hooks";
 import { SCENE_CONFIG, LANDSCAPE, COLORS } from "@/lib/constants";
 import type { LandscapeObject, SceneryData } from "@/types";
 
-/**
- * Tree mesh component
- */
 const Tree = ({ pos, scale }: LandscapeObject) => {
   return (
     <group position={pos} scale={[scale, scale, scale]}>
-      {/* Trunk */}
       <mesh position={[0, 0.5, 0]} castShadow receiveShadow>
         <cylinderGeometry args={[0.2, 0.4, 1, 5]} />
         <meshStandardMaterial color={COLORS.TREE_TRUNK} roughness={0.8} />
       </mesh>
-      {/* Bottom foliage */}
       <mesh position={[0, 1.5, 0]} castShadow receiveShadow>
         <coneGeometry args={[1, 2, 5]} />
         <meshStandardMaterial color={COLORS.TREE_DARK} roughness={0.8} />
       </mesh>
-      {/* Top foliage */}
       <mesh position={[0, 2.5, 0]} castShadow receiveShadow>
         <coneGeometry args={[0.7, 1.5, 5]} />
         <meshStandardMaterial color={COLORS.TREE_LIGHT} roughness={0.8} />
@@ -29,9 +23,6 @@ const Tree = ({ pos, scale }: LandscapeObject) => {
   );
 };
 
-/**
- * Mountain mesh component
- */
 const Mountain = ({ pos, scale, rot }: Required<LandscapeObject>) => {
   return (
     <mesh position={pos} rotation={[0, rot, 0]} receiveShadow>
@@ -41,9 +32,6 @@ const Mountain = ({ pos, scale, rot }: Required<LandscapeObject>) => {
   );
 };
 
-/**
- * Ground plane
- */
 function GroundPlane() {
   const midpoint = -SCENE_CONFIG.ROAD_LENGTH / 2;
 
@@ -59,9 +47,6 @@ function GroundPlane() {
   );
 }
 
-/**
- * Generate trees with deterministic pseudo-random positions
- */
 function generateTrees(length: number): LandscapeObject[] {
   const trees: LandscapeObject[] = [];
 
@@ -87,14 +72,11 @@ function generateTrees(length: number): LandscapeObject[] {
   return trees;
 }
 
-/**
- * Generate mountains with deterministic pseudo-random positions
- */
 function generateMountains(length: number): Required<LandscapeObject>[] {
   const mountains: Required<LandscapeObject>[] = [];
 
   for (let i = 0; i < LANDSCAPE.MOUNTAIN_COUNT; i++) {
-    const idx = i + 100; // Offset seed for different pattern
+    const idx = i + 100;
     const r1 = pseudoRandom(idx * 22.4);
     const r2 = pseudoRandom(idx * 5.9);
     const r3 = pseudoRandom(idx * 99.1);
@@ -122,9 +104,6 @@ function generateMountains(length: number): Required<LandscapeObject>[] {
   return mountains;
 }
 
-/**
- * Main Landscape component with procedurally generated scenery
- */
 export default function Landscape() {
   const scenery: SceneryData = useMemo(() => {
     const length = SCENE_CONFIG.ROAD_LENGTH + 50;
