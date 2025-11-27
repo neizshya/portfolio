@@ -79,8 +79,8 @@ export async function seedDatabase(db: AbstractPowerSyncDatabase) {
       description: "E-commerce platform for local products with modern UI/UX",
       image: "/project/banabams.png",
       tech_stack: "React, firebase, bootstrap",
-      github_link: "",
-      live_link: "",
+      github_link: "https://github.com/neizshya/Banabams",
+      live_link: "https://banabams.vercel.app/",
       order: 1,
     },
     {
