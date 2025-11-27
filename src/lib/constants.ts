@@ -173,6 +173,7 @@ export const LANDSCAPE = {
 export const ANIMATION = {
   BIKE_WOBBLE_SPEED: 2,
   BIKE_WOBBLE_AMOUNT: 0.03,
+  SCROLL_LERP_FACTOR: 0.05,
 } as const;
 
 // Scroll Configuration

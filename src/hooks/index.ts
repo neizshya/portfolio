@@ -80,32 +80,42 @@ export function useJourneyScroll() {
     // Early return for SSR
     if (typeof window === "undefined") return;
 
+    let ticking = false;
+
     const handleScroll = () => {
-      const sceneHeight = window.innerHeight;
-      const journeyScrollHeight = sceneHeight * 5; // 5x viewport height
-      const scrollPosition = window.scrollY;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const sceneHeight = window.innerHeight;
+          const journeyScrollHeight = sceneHeight * 5;
+          const scrollPosition = window.scrollY;
 
-      // Calculate normalized progress (0 to 1)
-      const progress = calculateScrollProgress(
-        scrollPosition,
-        journeyScrollHeight
-      );
+          // Calculate normalized progress (0 to 1)
+          const progress = calculateScrollProgress(
+            scrollPosition,
+            journeyScrollHeight
+          );
 
-      // Freeze 3D animation at 95% to allow smooth projects scroll
-      const frozenProgress = Math.min(progress, 0.95);
-      setScrollProgress(frozenProgress);
+          // Freeze 3D animation at 95% to allow smooth projects scroll
+          const frozenProgress = Math.min(progress, 0.95);
+          setScrollProgress(frozenProgress);
 
-      // Hide header when nearing journey end
-      setIsHeaderVisible(progress <= 0.7);
+          // Hide header when nearing journey end
+          setIsHeaderVisible(progress <= 0.7);
 
-      // Show projects section when journey is nearly complete
-      setCanScrollToProjects(progress >= 0.95);
+          // Show projects section when journey is nearly complete
+          setCanScrollToProjects(progress >= 0.95);
+
+          ticking = false;
+        });
+
+        ticking = true;
+      }
     };
 
     // Call once on mount
     handleScroll();
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 

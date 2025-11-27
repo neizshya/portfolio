@@ -99,7 +99,7 @@ function BikeFallback() {
 }
 
 /**
- * Moves the world based on scroll progress
+ * Moves the world based on scroll progress with smooth interpolation
  */
 function WorldMover({
   scrollProgress,
@@ -109,12 +109,20 @@ function WorldMover({
   children: React.ReactNode;
 }) {
   const groupRef = useRef<Group>(null);
+  const targetZ = useRef(0);
+  const currentZ = useRef(0);
   const { invalidate } = useThree();
 
   useFrame(() => {
     if (groupRef.current) {
       const normalizedProgress = Math.max(0, Math.min(1, scrollProgress));
-      groupRef.current.position.z = normalizedProgress * SCENE_CONFIG.TRAVEL;
+      targetZ.current = normalizedProgress * SCENE_CONFIG.TRAVEL;
+
+      // Smooth interpolation (lerp) for smoother movement
+      currentZ.current +=
+        (targetZ.current - currentZ.current) * ANIMATION.SCROLL_LERP_FACTOR;
+
+      groupRef.current.position.z = currentZ.current;
       invalidate();
     }
   });
