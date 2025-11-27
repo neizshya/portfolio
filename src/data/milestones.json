@@ -1,0 +1,47 @@
+[
+  {
+    "id": "1",
+    "title": "Bachelor of Informatics Engineering",
+    "company": "Catur Insan Cendekia University",
+    "date": "Sep 2020 - Sep 2024",
+    "description": "GPA: 3.77.",
+    "type": "education",
+    "distance": 35
+  },
+  {
+    "id": "2",
+    "title": "Junior Front End Developer",
+    "company": "Habibi Garden",
+    "date": "Jun 2022 - Oct 2022",
+    "description": "Built landing pages and processed API data into graphical forms.",
+    "type": "work",
+    "distance": 55
+  },
+  {
+    "id": "3",
+    "title": "Web Programmer Intern",
+    "company": "Diskominfo Kota Tasikmalaya",
+    "date": "Sep 2023 - Oct 2024",
+    "description": "Built Helpdesk TIK (CodeIgniter4) and JDIH websites (Laravel).",
+    "type": "work",
+    "distance": 75
+  },
+  {
+    "id": "4",
+    "title": "Independent Study Mentee",
+    "company": "Alterra Academy (MBKM)",
+    "date": "2023",
+    "description": "Complete Front-End Engineer Career with ReactJS course.",
+    "type": "education",
+    "distance": 95
+  },
+  {
+    "id": "5",
+    "title": "Frontend Dev",
+    "company": "Ready to work",
+    "date": "2025+",
+    "description": "Had experience in Html, CSS, Javascript,ReactJS,PHP,Laravel and Beginner in Next.js and typescript, eager to learn and grow.",
+    "type": "future",
+    "distance": 110
+  }
+]

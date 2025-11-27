@@ -9,8 +9,6 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@powersync/react": "^1.8.2",
-    "@powersync/web": "^1.29.0",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.4.0",
     "@supabase/supabase-js": "^2.84.0",
@@ -29,7 +27,6 @@
     "eslint": "^9",
     "eslint-config-next": "16.0.3",
     "tailwindcss": "^4",
-    "typescript": "^5",
-    "uuid": "^13.0.0"
+    "typescript": "^5"
   }
 }

@@ -2,8 +2,6 @@
 import { useRef, Suspense } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Stars, Environment } from "@react-three/drei";
-import { useQuery, PowerSyncContext, usePowerSync } from "@powersync/react";
-import { MILESTONES_TABLE } from "@/lib/schema";
 import { MotorcycleModel } from "./MotorcycleModel";
 import { MilestoneSign } from "./MilestoneSign";
 import Road from "./Road";
@@ -20,19 +18,18 @@ import {
   PERFORMANCE,
 } from "@/lib/constants";
 import type { ResumeItem, ScrollProgressProps } from "@/types";
+import milestonesData from "@/data/milestones.json";
+
 /**
  * Renders all milestone signs along the journey
  */
 function Milestones() {
-  const { data: milestones } = useQuery<ResumeItem>(
-    `SELECT * FROM ${MILESTONES_TABLE} ORDER BY distance ASC`
-  );
   const { isMobile } = useViewport();
   const maxDisplayDist = Math.max(10, SCENE_CONFIG.TRAVEL - 8);
 
   return (
     <>
-      {milestones.map((item, index) => (
+      {milestonesData.map((item: ResumeItem, index: number) => (
         <MilestoneSign
           key={item.id}
           item={item}
@@ -134,25 +131,30 @@ function WorldMover({
  * Main 3D touring scene component
  */
 export default function TouringScene({ scrollProgress }: ScrollProgressProps) {
-  const db = usePowerSync();
   const isMobile = useIsMobile();
 
   return (
     <div className={`h-screen w-full bg-${COLORS.BACKGROUND}`}>
       <Canvas
-        shadows
+        shadows="basic"
         camera={{ fov: isMobile ? CAMERA.MOBILE.FOV : CAMERA.DESKTOP.FOV }}
         dpr={isMobile ? PERFORMANCE.MOBILE_DPR : PERFORMANCE.DESKTOP_DPR}
         performance={{ min: PERFORMANCE.MIN_PERFORMANCE }}
+        frameloop="demand"
         gl={{
-          antialias: true,
+          antialias: false,
           powerPreference: "high-performance",
           alpha: false,
           stencil: false,
           depth: true,
+          preserveDrawingBuffer: false,
+          failIfMajorPerformanceCaveat: false,
+        }}
+        onCreated={({ gl }) => {
+          gl.setClearColor("#1a1a2e");
         }}
       >
-        <PowerSyncContext.Provider value={db}>
+        <Suspense fallback={null}>
           <JourneyCamera />
           <SceneLighting isMobile={isMobile} />
           <Environment preset="night" background={false} />
@@ -164,7 +166,7 @@ export default function TouringScene({ scrollProgress }: ScrollProgressProps) {
           </WorldMover>
 
           <BikeWrapper />
-        </PowerSyncContext.Provider>
+        </Suspense>
       </Canvas>
     </div>
   );
