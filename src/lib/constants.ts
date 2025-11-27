@@ -143,8 +143,8 @@ export const LIGHTING = {
 
 // Stars Configuration
 export const STARS = {
-  MOBILE_COUNT: 2000,
-  DESKTOP_COUNT: 3000,
+  MOBILE_COUNT: 1000, // Reduced from 2000
+  DESKTOP_COUNT: 1500, // Reduced from 3000
   RADIUS: 100,
   DEPTH: 50,
   FACTOR: 4,
@@ -152,8 +152,8 @@ export const STARS = {
 
 // Landscape Configuration
 export const LANDSCAPE = {
-  TREE_COUNT: 80,
-  MOUNTAIN_COUNT: 40,
+  TREE_COUNT: 50, // Reduced from 80
+  MOUNTAIN_COUNT: 25, // Reduced from 40
   TREE: {
     MIN_DISTANCE: 5,
     MAX_DISTANCE: 15,
@@ -192,7 +192,7 @@ export const FONTS = {
 
 // Performance Configuration
 export const PERFORMANCE = {
-  MOBILE_DPR: [0.8, 1] as [number, number],
-  DESKTOP_DPR: [1, 2] as [number, number],
+  MOBILE_DPR: [0.5, 1] as [number, number], // Reduced from 0.8
+  DESKTOP_DPR: [0.8, 1.5] as [number, number], // Reduced from [1, 2]
   MIN_PERFORMANCE: 0.5,
 } as const;

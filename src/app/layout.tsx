@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import PowerSyncProvider from "@/components/PowerSyncProvider";
 
 export const metadata: Metadata = {
   title: "Mochamad Nurul Adzan - Portfolio",
@@ -14,9 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        <PowerSyncProvider>{children}</PowerSyncProvider>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1",
+    "title": "Banabams",
+    "description": "E-commerce platform for local products with modern UI/UX",
+    "image": "/project/banabams.png",
+    "tech_stack": "React, firebase, bootstrap",
+    "github_link": "https://github.com/neizshya/Banabams",
+    "live_link": "https://banabams.vercel.app/",
+    "order": 1
+  },
+  {
+    "id": "2",
+    "title": "Helpdesk TIK",
+    "description": "IT helpdesk management system for Diskominfo Kota Tasikmalaya",
+    "image": "/project/helpdesk.png",
+    "tech_stack": "CodeIgniter 4, Bootstrap, MySQL",
+    "github_link": "",
+    "live_link": "",
+    "order": 2
+  },
+  {
+    "id": "3",
+    "title": "JDIH Website",
+    "description": "Legal documentation and information system website",
+    "image": "/project/jdih.png",
+    "tech_stack": "Laravel, Tailwind CSS, MySQL",
+    "github_link": "",
+    "live_link": "",
+    "order": 3
+  }
+]

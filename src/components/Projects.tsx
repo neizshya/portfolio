@@ -1,9 +1,8 @@
 "use client";
-import { useQuery } from "@powersync/react";
-import { PROJECTS_TABLE } from "@/lib/schema";
 import { LAYOUT, TEXT, SPACING, EFFECTS, COLORS_CSS } from "@/lib/styles";
 import type { Project } from "@/types";
 import Image from "next/image";
+import projectsData from "@/data/projects.json";
 
 /**
  * Technology badge component
@@ -22,9 +21,15 @@ function TechBadge({ tech }: { tech: string }) {
  * Project action buttons
  */
 function ProjectLinks({ project }: { project: Project }) {
+  const hasGithub = project.github_link && project.github_link.trim() !== "";
+  const hasLive = project.live_link && project.live_link.trim() !== "";
+
+  // Don't render the container if no links
+  if (!hasGithub && !hasLive) return null;
+
   return (
     <div className={`flex ${SPACING.buttonGap}`}>
-      {project.github_link && (
+      {hasGithub && (
         <a
           href={project.github_link}
           target="_blank"
@@ -34,7 +39,7 @@ function ProjectLinks({ project }: { project: Project }) {
           GitHub
         </a>
       )}
-      {project.live_link && (
+      {hasLive && (
         <a
           href={project.live_link}
           target="_blank"
@@ -121,9 +126,7 @@ function SectionHeader() {
  * Main Projects section component
  */
 export default function Projects() {
-  const { data: projects } = useQuery<Project>(
-    `SELECT * FROM ${PROJECTS_TABLE} ORDER BY \`order\` ASC`
-  );
+  const projects = projectsData as Project[];
 
   return (
     <section className={`${LAYOUT.section} ${COLORS_CSS.gradient}`}>
